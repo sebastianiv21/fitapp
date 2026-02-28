@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.db.session import engine
-from app.routers import health, nutrition
+from app.routers import health, nutrition, users, workout
 
 
 @asynccontextmanager
@@ -31,3 +31,5 @@ app.add_middleware(
 
 app.include_router(health.router, tags=["Health"])
 app.include_router(nutrition.router, tags=["Nutrition"])
+app.include_router(workout.router, tags=["Workout"])
+app.include_router(users.router, tags=["Users"])

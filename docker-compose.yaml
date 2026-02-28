@@ -38,6 +38,8 @@ services:
       - "8080:8080"
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://fitapp:fitapp_dev@postgres:5432/fitapp
     depends_on:
       postgres:
         condition: service_healthy

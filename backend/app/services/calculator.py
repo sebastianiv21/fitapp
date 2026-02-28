@@ -1,10 +1,5 @@
-from app.schemas.nutrition import (
-    ActivityLevel,
-    CalculatorInput,
-    CalculatorResult,
-    Gender,
-    Goal,
-)
+from app.enums import ActivityLevel, Gender, Goal
+from app.schemas.nutrition import CalculatorInput, CalculatorResult
 
 ACTIVITY_MULTIPLIERS = {
     ActivityLevel.SEDENTARY: 1.2,
