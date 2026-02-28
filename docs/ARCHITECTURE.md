@@ -1,6 +1,6 @@
-# Mobile Fit App - Technical Architecture & DevOps Guide
+# Fit App - Technical Architecture & DevOps Guide
 
-> A hands-on DevOps portfolio project: AI-powered Fitness & Nutrition mobile app with Python/FastAPI backend, Kubernetes, GitOps, and production-grade CI/CD practices.
+> A hands-on DevOps portfolio project: AI-powered Fitness & Nutrition web app with Python/FastAPI backend, Next.js frontend, Kubernetes, GitOps, and production-grade CI/CD practices.
 
 ---
 
@@ -17,23 +17,22 @@
 9. [Deployment Strategies](#deployment-strategies)
 10. [Authentication (Better Auth)](#authentication-better-auth)
 11. [Backend API (Go)](#backend-api-go)
-12. [Mobile App (React Native)](#mobile-app-react-native)
-13. [Admin Dashboard](#admin-dashboard)
-14. [Observability](#observability)
-15. [Disaster Recovery](#disaster-recovery)
-16. [Incident Response](#incident-response)
-17. [Security](#security)
-18. [Local Development](#local-development)
-19. [Implementation Phases](#implementation-phases)
-20. [Cost Estimation](#cost-estimation)
-21. [DevOps Skills Checklist](#devops-skills-checklist)
+12. [Web Frontend (Next.js)](#web-frontend-nextjs)
+13. [Observability](#observability)
+14. [Disaster Recovery](#disaster-recovery)
+15. [Incident Response](#incident-response)
+16. [Security](#security)
+17. [Local Development](#local-development)
+18. [Implementation Phases](#implementation-phases)
+19. [Cost Estimation](#cost-estimation)
+20. [DevOps Skills Checklist](#devops-skills-checklist)
 
 ---
 
 ## Overview
 
 ### Goals
-- Build a production-ready fitness/nutrition SaaS mobile app
+- Build a production-ready fitness/nutrition SaaS web app
 - Showcase DevOps skills: IaC, K8s, CI/CD, monitoring
 - Avoid vendor lock-in with portable, open-source solutions
 - Practice real-world cloud engineering patterns
@@ -58,7 +57,7 @@
 
 | Layer | Technology | Why |
 |-------|------------|-----|
-| **Mobile** | React Native + Expo (SDK 55+) | Cross-platform, fast development |
+| **Frontend** | Next.js (App Router) + React | SSR/SSG, realistic web DevOps patterns |
 | **State Management** | Zustand | Simple, minimal boilerplate |
 | **Backend** | Python 3.12 + FastAPI | AI-native, realistic for AI-SaaS, minimal code |
 | **AI/LLM** | OpenAI / LangChain | Diet & workout generation, recommendations |
@@ -124,10 +123,10 @@
 └─────────────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           Mobile Clients                                     │
-│  ┌─────────────┐  ┌─────────────┐                                           │
-│  │     iOS     │  │   Android   │  ← React Native + Expo                    │
-│  └─────────────┘  └─────────────┘                                           │
+│                           Web Client                                         │
+│  ┌──────────────────────────┐                                               │
+│  │  Next.js (App Router)   │  ← SSR/SSG + React                            │
+│  └──────────────────────────┘                                               │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -136,35 +135,29 @@
 ## Project Structure
 
 ```
-mobile-fit-app/
-├── apps/
-│   ├── mobile/                     # React Native Expo app
-│   │   ├── src/
-│   │   │   ├── screens/            # Screen components
-│   │   │   │   ├── auth/           # Login, Register, Social
-│   │   │   │   ├── onboarding/     # User data collection
-│   │   │   │   ├── dashboard/      # Main dashboard
-│   │   │   │   ├── diet/           # Diet plans
-│   │   │   │   ├── workout/        # Workout routines
-│   │   │   │   └── progress/       # Progress tracking
-│   │   │   ├── components/         # Reusable UI components
-│   │   │   ├── hooks/              # Custom React hooks
-│   │   │   ├── services/           # API client (fetch/axios)
-│   │   │   ├── store/              # Zustand stores
-│   │   │   ├── utils/              # Helpers, constants
-│   │   │   └── types/              # TypeScript types
-│   │   ├── assets/                 # Images, fonts
-│   │   ├── app.json                # Expo config
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   │
-│   └── admin/                      # Admin dashboard (React + Vite)
-│       ├── src/
-│       │   ├── pages/
-│       │   ├── components/
-│       │   └── services/
-│       ├── package.json
-│       └── Dockerfile
+fitapp/
+├── web/                                # Next.js frontend (App Router)
+│   ├── app/                            # App Router pages
+│   │   ├── layout.tsx                  # Root layout
+│   │   ├── page.tsx                    # Landing page
+│   │   ├── (auth)/                     # Auth pages (login, register)
+│   │   │   ├── login/page.tsx
+│   │   │   └── register/page.tsx
+│   │   ├── dashboard/                  # Main dashboard
+│   │   │   ├── page.tsx
+│   │   │   ├── diet/page.tsx
+│   │   │   ├── workout/page.tsx
+│   │   │   └── progress/page.tsx
+│   │   └── onboarding/page.tsx         # User data collection
+│   ├── components/                     # Reusable UI components
+│   ├── lib/                            # API client, auth helpers, utils
+│   ├── store/                          # Zustand stores
+│   ├── types/                          # TypeScript types
+│   ├── public/                         # Static assets
+│   ├── next.config.ts
+│   ├── package.json
+│   ├── Dockerfile
+│   └── tsconfig.json
 │
 ├── backend/                        # Python FastAPI service
 │   ├── app/
@@ -284,7 +277,7 @@ mobile-fit-app/
 │       ├── ci.yaml                 # Lint, test, build
 │       ├── cd-infra.yaml           # Terraform plan/apply
 │       ├── cd-images.yaml          # Build & push images
-│       ├── cd-mobile.yaml          # Expo EAS build
+│       ├── cd-web.yaml             # Web frontend build & deploy
 │       └── security-scan.yaml      # Trivy, dependency scan
 │
 ├── gitops/                         # ArgoCD GitOps
@@ -531,7 +524,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "mobile-fit-app-terraform-state"
+    bucket         = "fitapp-terraform-state"
     key            = "dev/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-locks"
@@ -544,7 +537,7 @@ provider "aws" {
   
   default_tags {
     tags = {
-      Project     = "mobile-fit-app"
+      Project     = "fitapp"
       Environment = "dev"
       ManagedBy   = "terraform"
     }
@@ -598,7 +591,7 @@ module "ecr" {
   source = "../../modules/ecr"
   
   project_name     = var.project_name
-  repository_names = ["fit-api", "better-auth", "admin"]
+  repository_names = ["fit-api", "better-auth", "web"]
   tags             = var.tags
 }
 ```
@@ -892,8 +885,8 @@ jobs:
         working-directory: auth
         run: npm run lint
 
-  lint-mobile:
-    name: Lint Mobile App
+  lint-web:
+    name: Lint Web Frontend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -904,32 +897,32 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       
       - name: Install dependencies
-        working-directory: apps/mobile
-        run: npm ci
+        working-directory: web
+        run: pnpm install --frozen-lockfile
       
       - name: Lint
-        working-directory: apps/mobile
-        run: npm run lint
+        working-directory: web
+        run: pnpm lint
       
       - name: Type check
-        working-directory: apps/mobile
-        run: npm run typecheck
+        working-directory: web
+        run: pnpm typecheck
 
   build-images:
     name: Build Docker Images
     runs-on: ubuntu-latest
-    needs: [lint-backend, test-backend, lint-auth]
+    needs: [lint-backend, test-backend, lint-auth, lint-web]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       matrix:
-        service: [fit-api, better-auth, admin]
+        service: [fit-api, better-auth, web]
         include:
           - service: fit-api
             context: backend
           - service: better-auth
             context: auth
-          - service: admin
-            context: apps/admin
+          - service: web
+            context: web
     steps:
       - uses: actions/checkout@v4
       
@@ -953,8 +946,8 @@ jobs:
           context: ${{ matrix.context }}
           push: true
           tags: |
-            ${{ steps.login-ecr.outputs.registry }}/mobile-fit-app/${{ matrix.service }}:${{ github.sha }}
-            ${{ steps.login-ecr.outputs.registry }}/mobile-fit-app/${{ matrix.service }}:latest
+            ${{ steps.login-ecr.outputs.registry }}/fitapp/${{ matrix.service }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/fitapp/${{ matrix.service }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 ```
@@ -1103,7 +1096,7 @@ jobs:
       
       - name: Update kubeconfig
         run: |
-          aws eks update-kubeconfig --name mobile-fit-app-${{ inputs.environment || 'dev' }} --region us-east-1
+          aws eks update-kubeconfig --name fitapp-${{ inputs.environment || 'dev' }} --region us-east-1
       
       - name: Install Helm
         uses: azure/setup-helm@v3
@@ -1116,7 +1109,7 @@ jobs:
             --namespace fitapp \
             --create-namespace \
             -f ./helm/fit-api/values-${{ inputs.environment || 'dev' }}.yaml \
-            --set image.repository=${{ steps.login-ecr.outputs.registry }}/mobile-fit-app/fit-api \
+            --set image.repository=${{ steps.login-ecr.outputs.registry }}/fitapp/fit-api \
             --set image.tag=${{ github.sha }}
       
       - name: Deploy better-auth
@@ -1124,7 +1117,7 @@ jobs:
           helm upgrade --install better-auth ./helm/better-auth \
             --namespace fitapp \
             -f ./helm/better-auth/values-${{ inputs.environment || 'dev' }}.yaml \
-            --set image.repository=${{ steps.login-ecr.outputs.registry }}/mobile-fit-app/better-auth \
+            --set image.repository=${{ steps.login-ecr.outputs.registry }}/fitapp/better-auth \
             --set image.tag=${{ github.sha }}
       
       - name: Verify deployment
@@ -1195,7 +1188,7 @@ spec:
   project: default
   
   source:
-    repoURL: https://github.com/yourorg/mobile-fit-app.git
+    repoURL: https://github.com/yourorg/fitapp.git
     targetRevision: main
     path: helm/fit-api
     helm:
@@ -1232,7 +1225,7 @@ Auto-updates image tags when new images are pushed to ECR:
 
 metadata:
   annotations:
-    argocd-image-updater.argoproj.io/image-list: fit-api=123456789.dkr.ecr.us-east-1.amazonaws.com/mobile-fit-app/fit-api
+    argocd-image-updater.argoproj.io/image-list: fit-api=123456789.dkr.ecr.us-east-1.amazonaws.com/fitapp/fit-api
     argocd-image-updater.argoproj.io/fit-api.update-strategy: latest
     argocd-image-updater.argoproj.io/fit-api.allow-tags: regexp:^[a-f0-9]{40}$
     argocd-image-updater.argoproj.io/write-back-method: git
@@ -1251,7 +1244,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/yourorg/mobile-fit-app.git
+    repoURL: https://github.com/yourorg/fitapp.git
     targetRevision: main
     path: gitops/environments/dev
   destination:
@@ -2105,16 +2098,16 @@ pytest-asyncio==0.23.3
 
 ---
 
-## Mobile App (React Native)
+## Web Frontend (Next.js)
 
-### App Structure
+### API Client
 
 ```typescript
-// apps/mobile/src/services/api.ts
+// web/lib/api.ts
 
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '@/store/auth';
 
-const API_BASE = process.env.EXPO_PUBLIC_API_URL;
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 class ApiClient {
   private async request<T>(
@@ -2181,12 +2174,13 @@ class ApiClient {
 export const api = new ApiClient();
 ```
 
+### Auth Store
+
 ```typescript
-// apps/mobile/src/store/auth.ts
+// web/store/auth.ts
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import * as SecureStore from 'expo-secure-store';
 
 interface AuthState {
   token: string | null;
@@ -2195,18 +2189,6 @@ interface AuthState {
   setAuth: (token: string, user: User) => void;
   logout: () => void;
 }
-
-const secureStorage = {
-  getItem: async (name: string) => {
-    return await SecureStore.getItemAsync(name);
-  },
-  setItem: async (name: string, value: string) => {
-    await SecureStore.setItemAsync(name, value);
-  },
-  removeItem: async (name: string) => {
-    await SecureStore.deleteItemAsync(name);
-  },
-};
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -2221,10 +2203,44 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'auth-storage',
-      storage: createJSONStorage(() => secureStorage),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
+```
+
+### Dockerfile
+
+```dockerfile
+# web/Dockerfile
+
+FROM node:20-alpine AS base
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+FROM base AS deps
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN pnpm build
+
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+USER nextjs
+EXPOSE 3001
+ENV PORT=3001
+CMD ["node", "server.js"]
 ```
 
 ---
@@ -3037,8 +3053,8 @@ dev-logs:
 # Testing
 test:
 	cd backend && pytest -v
-	cd auth && npm test
-	cd apps/mobile && npm test
+	cd auth && pnpm test
+	cd web && pnpm test
 
 test-coverage:
 	cd backend && pytest --cov=app --cov-report=html
@@ -3046,8 +3062,8 @@ test-coverage:
 # Linting
 lint:
 	cd backend && ruff check . && mypy app
-	cd auth && npm run lint
-	cd apps/mobile && npm run lint
+	cd auth && pnpm lint
+	cd web && pnpm lint
 
 # Building
 build:
