@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     )
 
     database_url: str = "postgresql+asyncpg://fitapp:fitapp_dev@localhost:5432/fitapp"
-    jwt_secret: str = "dev-secret-change-in-prod"
+    auth_url: str = "http://localhost:3000"
     openai_api_key: str = ""
     cors_origins: list[str] = ["*"]
     environment: str = "development"

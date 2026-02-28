@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { jwt } from "better-auth/plugins";
 import { Pool } from "pg";
 
 export const auth = betterAuth({
@@ -23,5 +24,7 @@ export const auth = betterAuth({
     updateAge: 60 * 60 * 24,       // refresh if older than 1 day
   },
 
-  secret: process.env.JWT_SECRET,
+  plugins: [jwt()],
+
+  secret: process.env.BETTER_AUTH_SECRET,
 });

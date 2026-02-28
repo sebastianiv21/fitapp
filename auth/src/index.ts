@@ -10,7 +10,7 @@ app.get("/health", (_req, res) => {
 });
 
 // Better Auth handles all /api/auth/* routes
-app.all("/api/auth/*splat", toNodeHandler(auth));
+app.all("/api/auth/*", toNodeHandler(auth));
 
 app.listen(PORT, () => {
   console.log(`Auth service running on port ${PORT}`);

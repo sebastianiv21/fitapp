@@ -1,27 +1,27 @@
-import jwt
 import pytest
 from httpx import ASGITransport, AsyncClient
 
-from app.config import settings
 from app.main import app
 
 TEST_USER_ID = "test-user-123"
 
 
-def make_token(user_id: str = TEST_USER_ID) -> str:
-    return jwt.encode({"sub": user_id}, settings.jwt_secret, algorithm="HS256")
-
-
 @pytest.fixture
-def auth_headers() -> dict:
-    return {"Authorization": f"Bearer {make_token()}"}
+def auth_headers():
+    """Override the auth dependency to return a test user ID."""
+    from app.middleware.auth import get_current_user
+
+    async def mock_get_current_user():
+        return TEST_USER_ID
+
+    app.dependency_overrides[get_current_user] = mock_get_current_user
+    yield {"Authorization": "Bearer fake-token"}
+    app.dependency_overrides.clear()
 
 
 @pytest.mark.asyncio
 async def test_health():
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         response = await client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
@@ -29,9 +29,7 @@ async def test_health():
 
 @pytest.mark.asyncio
 async def test_calculate_no_auth():
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         response = await client.post("/api/v1/nutrition/calculate", json={})
     assert response.status_code == 401
 
@@ -46,9 +44,7 @@ async def test_calculate_with_auth(auth_headers):
         "activity_level": "moderate",
         "goal": "maintain",
     }
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         response = await client.post(
             "/api/v1/nutrition/calculate",
             json=payload,
@@ -65,16 +61,14 @@ async def test_calculate_with_auth(auth_headers):
 @pytest.mark.asyncio
 async def test_calculate_validation_error(auth_headers):
     payload = {
-        "age": 5,  # below minimum 13
+        "age": 5,
         "gender": "male",
         "height_cm": 175,
         "weight_kg": 75,
         "activity_level": "moderate",
         "goal": "maintain",
     }
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         response = await client.post(
             "/api/v1/nutrition/calculate",
             json=payload,

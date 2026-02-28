@@ -15,7 +15,7 @@ dependencies = [
     "pydantic>=2.5.0",
     "pydantic-settings>=2.1.0",
     # Auth
-    "PyJWT>=2.8.0",
+    "PyJWT[crypto]>=2.8.0",
     # AI
     "openai>=1.10.0",
     # HTTP client (for tests and internal calls)
