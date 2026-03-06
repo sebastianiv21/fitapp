@@ -11,9 +11,9 @@ interface AlertProps {
 }
 
 const typeStyles = {
-  error: "bg-red-50 border-red-200 text-red-700",
-  success: "bg-green-50 border-green-200 text-green-700",
-  info: "bg-blue-50 border-blue-200 text-blue-700",
+  error: "alert-error",
+  success: "alert-success",
+  info: "alert-info",
 };
 
 const typeIcons = {
@@ -29,12 +29,12 @@ export function Alert({ type = "error", message, onClose }: AlertProps) {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={cn("rounded-xl border px-4 py-3 flex items-start gap-3", typeStyles[type])}
+      className={cn("alert rounded-xl", typeStyles[type])}
     >
-      <Icon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-      <p className="flex-1 text-sm">{message}</p>
+      <Icon className="w-5 h-5 flex-shrink-0" />
+      <span className="flex-1 text-sm">{message}</span>
       {onClose && (
-        <button onClick={onClose} className="flex-shrink-0 hover:opacity-70">
+        <button onClick={onClose} className="btn btn-ghost btn-sm btn-circle flex-shrink-0">
           <X className="w-4 h-4" />
         </button>
       )}
