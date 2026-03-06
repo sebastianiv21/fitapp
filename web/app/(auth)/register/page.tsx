@@ -54,7 +54,7 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div className="relative">
-          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0f3d2e]/40" />
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-base-content/40" />
           <Input
             {...register("name")}
             placeholder="Full name (optional)"
@@ -64,7 +64,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="relative">
-          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0f3d2e]/40" />
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-base-content/40" />
           <Input
             {...register("email")}
             type="email"
@@ -75,7 +75,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="relative">
-          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0f3d2e]/40" />
+          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-base-content/40" />
           <Input
             {...register("password")}
             type="password"
@@ -86,7 +86,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="relative">
-          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0f3d2e]/40" />
+          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-base-content/40" />
           <Input
             {...register("confirmPassword")}
             type="password"

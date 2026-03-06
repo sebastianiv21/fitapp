@@ -2,6 +2,34 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@plugin "daisyui/theme" {
+  name: "fitapp";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #faf9f6;
+  --color-base-200: #f0efe9;
+  --color-base-300: #e5e4de;
+  --color-base-content: #0f3d2e;
+
+  --color-primary: #0f3d2e;
+  --color-primary-content: #faf9f6;
+
+  --color-secondary: #269366;
+  --color-secondary-content: #faf9f6;
+
+  --color-accent: #ccff00;
+  --color-accent-content: #0f3d2e;
+
+  --color-neutral: #e5e4de;
+  --color-neutral-content: #0f3d2e;
+
+  --color-info: #269366;
+  --color-success: #269366;
+  --color-warning: #ccff00;
+  --color-error: #dc2626;
+}
+
 :root {
     --forest-900: #0f3d2e;
     --forest-800: #145239;

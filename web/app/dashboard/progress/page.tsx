@@ -106,7 +106,7 @@ function ProgressChart({ data }: { data: ProgressEntry[] }) {
         </defs>
       </svg>
 
-      <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-[#0f3d2e]/60">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-base-content/60">
         {sorted.length > 0 && (
           <>
             <span>{new Date(sorted[0].recorded_at).toLocaleDateString()}</span>
@@ -162,10 +162,10 @@ export default function ProgressPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold text-[#0f3d2e]">
+          <h1 className="font-display text-3xl font-bold text-base-content">
             Progress Tracking
           </h1>
-          <p className="text-[#0f3d2e]/60 mt-1">
+          <p className="text-base-content/60 mt-1">
             Monitor your weight and fitness journey
           </p>
         </div>
@@ -241,12 +241,12 @@ export default function ProgressPage() {
             <Card glass>
               <CardContent className="p-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#ccff00]/20 rounded-xl flex items-center justify-center">
-                    <Scale className="w-6 h-6 text-[#0f3d2e]" />
+                  <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center">
+                    <Scale className="w-6 h-6 text-base-content" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#0f3d2e]/60">Current Weight</p>
-                    <p className="font-display text-2xl font-bold text-[#0f3d2e]">
+                    <p className="text-sm text-base-content/60">Current Weight</p>
+                    <p className="font-display text-2xl font-bold text-base-content">
                       {latestWeight} kg
                     </p>
                   </div>
@@ -257,18 +257,18 @@ export default function ProgressPage() {
             <Card glass>
               <CardContent className="p-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#0f3d2e]/10 rounded-xl flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-[#0f3d2e]" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-base-content" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#0f3d2e]/60">Change</p>
+                    <p className="text-sm text-base-content/60">Change</p>
                     <p
                       className={`font-display text-2xl font-bold ${
                         weightChange < 0
                           ? "text-green-600"
                           : weightChange > 0
                           ? "text-red-600"
-                          : "text-[#0f3d2e]"
+                          : "text-base-content"
                       }`}
                     >
                       {weightChange > 0 ? "+" : ""}
@@ -282,12 +282,12 @@ export default function ProgressPage() {
             <Card glass>
               <CardContent className="p-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#207d57]/10 rounded-xl flex items-center justify-center">
-                    <Calendar className="w-6 h-6 text-[#207d57]" />
+                  <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
+                    <Calendar className="w-6 h-6 text-secondary" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#0f3d2e]/60">Total Entries</p>
-                    <p className="font-display text-2xl font-bold text-[#0f3d2e]">
+                    <p className="text-sm text-base-content/60">Total Entries</p>
+                    <p className="font-display text-2xl font-bold text-base-content">
                       {progress.length}
                     </p>
                   </div>
@@ -313,7 +313,7 @@ export default function ProgressPage() {
         </CardHeader>
         <CardContent>
           {progress && progress.length > 0 ? (
-            <div className="divide-y divide-[#e5e4de]">
+            <div className="divide-y divide-neutral">
               {progress.map((entry, index) => (
                 <motion.div
                   key={entry.id}
@@ -323,19 +323,19 @@ export default function ProgressPage() {
                   className="py-4 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#207d57]/10 rounded-lg flex items-center justify-center">
-                      <Scale className="w-5 h-5 text-[#207d57]" />
+                    <div className="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                      <Scale className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <p className="font-medium text-[#0f3d2e]">
+                      <p className="font-medium text-base-content">
                         {entry.weight_kg} kg
                       </p>
                       {entry.notes && (
-                        <p className="text-sm text-[#0f3d2e]/60">{entry.notes}</p>
+                        <p className="text-sm text-base-content/60">{entry.notes}</p>
                       )}
                     </div>
                   </div>
-                  <p className="text-sm text-[#0f3d2e]/60">
+                  <p className="text-sm text-base-content/60">
                     {new Date(entry.recorded_at).toLocaleDateString()}
                   </p>
                 </motion.div>
@@ -343,8 +343,8 @@ export default function ProgressPage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Scale className="w-12 h-12 text-[#0f3d2e]/20 mx-auto mb-4" />
-              <p className="text-[#0f3d2e]/60">
+              <Scale className="w-12 h-12 text-base-content/20 mx-auto mb-4" />
+              <p className="text-base-content/60">
                 No entries yet. Start tracking your progress!
               </p>
             </div>

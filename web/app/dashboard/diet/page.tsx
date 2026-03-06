@@ -36,27 +36,27 @@ function MealCard({
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#ccff00]/20 rounded-xl flex items-center justify-center">
-                <Apple className="w-6 h-6 text-[#0f3d2e]" />
+              <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center">
+                <Apple className="w-6 h-6 text-base-content" />
               </div>
               <div>
-                <h3 className="font-display text-lg font-semibold text-[#0f3d2e]">
+                <h3 className="font-display text-lg font-semibold text-base-content">
                   {title}
                 </h3>
-                <p className="text-sm text-[#0f3d2e]/60">{meal.name}</p>
+                <p className="text-sm text-base-content/60">{meal.name}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="font-semibold text-[#0f3d2e]">{meal.calories} kcal</p>
-                <p className="text-xs text-[#0f3d2e]/60">
+                <p className="font-semibold text-base-content">{meal.calories} kcal</p>
+                <p className="text-xs text-base-content/60">
                   P: {meal.protein}g · C: {meal.carbs}g · F: {meal.fat}g
                 </p>
               </div>
               {expanded ? (
-                <ChevronUp className="w-5 h-5 text-[#0f3d2e]/60" />
+                <ChevronUp className="w-5 h-5 text-base-content/60" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-[#0f3d2e]/60" />
+                <ChevronDown className="w-5 h-5 text-base-content/60" />
               )}
             </div>
           </div>
@@ -70,15 +70,15 @@ function MealCard({
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden"
             >
-              <div className="px-6 pb-6 pt-2 border-t border-[#e5e4de]">
-                <h4 className="text-sm font-medium text-[#0f3d2e] mb-3">Foods:</h4>
+              <div className="px-6 pb-6 pt-2 border-t border-neutral">
+                <h4 className="text-sm font-medium text-base-content mb-3">Foods:</h4>
                 <ul className="space-y-2">
                   {meal.foods.map((food, i) => (
                     <li
                       key={i}
-                      className="flex items-center gap-2 text-[#0f3d2e]/80"
+                      className="flex items-center gap-2 text-base-content/80"
                     >
-                      <span className="w-1.5 h-1.5 bg-[#ccff00] rounded-full" />
+                      <span className="w-1.5 h-1.5 bg-accent rounded-full" />
                       {food}
                     </li>
                   ))}
@@ -107,8 +107,8 @@ function MacroCard({
         className="w-3 h-3 rounded-full mx-auto mb-2"
         style={{ backgroundColor: color }}
       />
-      <p className="text-2xl font-bold text-[#0f3d2e]">{value}g</p>
-      <p className="text-sm text-[#0f3d2e]/60">{label}</p>
+      <p className="text-2xl font-bold text-base-content">{value}g</p>
+      <p className="text-sm text-base-content/60">{label}</p>
     </div>
   );
 }
@@ -155,10 +155,10 @@ export default function DietPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold text-[#0f3d2e]">
+          <h1 className="font-display text-3xl font-bold text-base-content">
             Your Diet Plan
           </h1>
-          <p className="text-[#0f3d2e]/60 mt-1">
+          <p className="text-base-content/60 mt-1">
             AI-generated meals based on your goals
           </p>
         </div>
@@ -195,7 +195,7 @@ export default function DietPage() {
       {mutation.isPending && !diet && (
         <div className="flex flex-col items-center justify-center py-20">
           <Loading size="lg" />
-          <p className="text-[#0f3d2e]/60 mt-4">
+          <p className="text-base-content/60 mt-4">
             Creating your personalized diet plan...
           </p>
         </div>
@@ -206,10 +206,10 @@ export default function DietPage() {
           <Card glass>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-display text-lg font-semibold text-[#0f3d2e]">
+                <h3 className="font-display text-lg font-semibold text-base-content">
                   Daily Macros
                 </h3>
-                <p className="text-2xl font-bold text-[#0f3d2e]">
+                <p className="text-2xl font-bold text-base-content">
                   {diet.total_calories} kcal
                 </p>
               </div>
@@ -245,10 +245,10 @@ export default function DietPage() {
           {diet.notes && (
             <Card glass>
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold text-[#0f3d2e] mb-2">
+                <h3 className="font-display text-lg font-semibold text-base-content mb-2">
                   Notes
                 </h3>
-                <p className="text-[#0f3d2e]/70">{diet.notes}</p>
+                <p className="text-base-content/70">{diet.notes}</p>
               </CardContent>
             </Card>
           )}

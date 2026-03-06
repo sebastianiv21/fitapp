@@ -34,27 +34,27 @@ function WorkoutDayCard({
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#0f3d2e] rounded-xl flex items-center justify-center">
-                <span className="text-[#ccff00] font-bold">{day.day}</span>
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                <span className="text-accent font-bold">{day.day}</span>
               </div>
               <div>
-                <h3 className="font-display text-lg font-semibold text-[#0f3d2e]">
+                <h3 className="font-display text-lg font-semibold text-base-content">
                   {day.focus}
                 </h3>
-                <p className="text-sm text-[#0f3d2e]/60 flex items-center gap-1">
+                <p className="text-sm text-base-content/60 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {day.duration_minutes} minutes
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-[#0f3d2e]/60">
+              <span className="text-sm text-base-content/60">
                 {day.exercises.length} exercises
               </span>
               {expanded ? (
-                <ChevronUp className="w-5 h-5 text-[#0f3d2e]/60" />
+                <ChevronUp className="w-5 h-5 text-base-content/60" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-[#0f3d2e]/60" />
+                <ChevronDown className="w-5 h-5 text-base-content/60" />
               )}
             </div>
           </div>
@@ -68,25 +68,25 @@ function WorkoutDayCard({
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden"
             >
-              <div className="px-6 pb-6 pt-2 border-t border-[#e5e4de]">
+              <div className="px-6 pb-6 pt-2 border-t border-neutral">
                 <div className="space-y-4">
                   {day.exercises.map((exercise, i) => (
                     <div
                       key={i}
-                      className="flex items-start justify-between py-3 border-b border-[#e5e4de]/50 last:border-0"
+                      className="flex items-start justify-between py-3 border-b border-neutral/50 last:border-0"
                     >
                       <div>
-                        <p className="font-medium text-[#0f3d2e]">{exercise.name}</p>
+                        <p className="font-medium text-base-content">{exercise.name}</p>
                         {exercise.notes && (
-                          <p className="text-sm text-[#0f3d2e]/60">{exercise.notes}</p>
+                          <p className="text-sm text-base-content/60">{exercise.notes}</p>
                         )}
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-medium text-[#0f3d2e]">
+                        <p className="text-sm font-medium text-base-content">
                           {exercise.sets} sets
                         </p>
-                        <p className="text-sm text-[#0f3d2e]/60">{exercise.reps}</p>
-                        <p className="text-xs text-[#0f3d2e]/50">
+                        <p className="text-sm text-base-content/60">{exercise.reps}</p>
+                        <p className="text-xs text-base-content/50">
                           {exercise.rest_seconds}s rest
                         </p>
                       </div>
@@ -140,10 +140,10 @@ export default function WorkoutPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold text-[#0f3d2e]">
+          <h1 className="font-display text-3xl font-bold text-primary">
             Your Workout Plan
           </h1>
-          <p className="text-[#0f3d2e]/60 mt-1">
+          <p className="text-base-content/60 mt-1">
             AI-generated routine for your fitness level
           </p>
         </div>
@@ -180,7 +180,7 @@ export default function WorkoutPage() {
       {mutation.isPending && !workout && (
         <div className="flex flex-col items-center justify-center py-20">
           <Loading size="lg" />
-          <p className="text-[#0f3d2e]/60 mt-4">
+          <p className="text-base-content/60 mt-4">
             Creating your personalized workout plan...
           </p>
         </div>
@@ -190,26 +190,26 @@ export default function WorkoutPage() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="glass-card rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#0f3d2e]">{workout.days.length}</p>
-              <p className="text-sm text-[#0f3d2e]/60">Training Days</p>
+              <p className="text-3xl font-bold text-primary">{workout.days.length}</p>
+              <p className="text-sm text-base-content/60">Training Days</p>
             </div>
             <div className="glass-card rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#0f3d2e]">
+              <p className="text-3xl font-bold text-primary">
                 {Math.round(workout.days.reduce((acc, d) => acc + d.duration_minutes, 0) / workout.days.length)}
               </p>
-              <p className="text-sm text-[#0f3d2e]/60">Avg Minutes/Day</p>
+              <p className="text-sm text-base-content/60">Avg Minutes/Day</p>
             </div>
             <div className="glass-card rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#0f3d2e]">
+              <p className="text-3xl font-bold text-primary">
                 {workout.days.reduce((acc, d) => acc + d.exercises.length, 0)}
               </p>
-              <p className="text-sm text-[#0f3d2e]/60">Total Exercises</p>
+              <p className="text-sm text-base-content/60">Total Exercises</p>
             </div>
             <div className="glass-card rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#0f3d2e]">
+              <p className="text-3xl font-bold text-primary">
                 {Math.round(workout.days.reduce((acc, d) => acc + d.duration_minutes, 0))}
               </p>
-              <p className="text-sm text-[#0f3d2e]/60">Weekly Minutes</p>
+              <p className="text-sm text-base-content/60">Weekly Minutes</p>
             </div>
           </div>
 

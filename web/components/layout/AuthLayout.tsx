@@ -23,7 +23,7 @@ export function AuthLayout({
   footerLink,
 }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#faf9f6] flex flex-col">
+    <div className="min-h-screen bg-base-100 flex flex-col">
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,10 +32,10 @@ export function AuthLayout({
         >
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-[#ccff00] rounded-xl flex items-center justify-center">
-                <Activity className="w-6 h-6 text-[#0f3d2e]" />
+              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
+                <Activity className="w-6 h-6 text-accent-content" />
               </div>
-              <span className="font-display text-2xl font-bold text-[#0f3d2e]">
+              <span className="font-display text-2xl font-bold text-primary">
                 FitApp
               </span>
             </Link>

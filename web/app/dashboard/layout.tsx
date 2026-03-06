@@ -27,7 +27,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f6]">
+    <div className="min-h-screen bg-base-100">
       <Navbar />
       <div className="flex pt-16">
         <Sidebar />

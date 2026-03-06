@@ -19,7 +19,7 @@ interface SpinnerProps {
 function Spinner({ size = "md", className, animate = true }: SpinnerProps) {
   const spinnerClass = cn(
     sizeStyles[size],
-    "border-4 border-[#e5e4de] border-t-[#ccff00] rounded-full",
+    "border-4 border-neutral border-t-accent rounded-full",
     animate && "animate-spin",
     className
   );
@@ -46,14 +46,14 @@ export function Loading({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
 
 export function LoadingScreen() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf9f6]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-base-100">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         className="flex flex-col items-center gap-4"
       >
         <Spinner size="xl" />
-        <p className="text-[#0f3d2e] font-medium">Loading...</p>
+        <p className="text-base-content font-medium">Loading...</p>
       </motion.div>
     </div>
   );

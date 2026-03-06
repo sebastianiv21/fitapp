@@ -32,8 +32,8 @@ function StatCard({
   color?: "primary" | "secondary" | "accent";
 }) {
   const colorStyles = {
-    primary: "bg-[#ccff00]/20 text-[#0f3d2e]",
-    secondary: "bg-[#0f3d2e]/10 text-[#0f3d2e]",
+    primary: "bg-accent/20 text-base-content",
+    secondary: "bg-[#ccff00]/20 text-[#0f3d2e]",
     accent: "bg-[#207d57]/10 text-[#207d57]",
   };
 
@@ -42,17 +42,22 @@ function StatCard({
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-sm text-[#0f3d2e]/60 mb-1">{title}</p>
+            <p className="text-sm text-base-content/60 mb-1">{title}</p>
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-3xl font-bold text-[#0f3d2e]">
+              <span className="font-display text-3xl font-bold text-base-content">
                 {value}
               </span>
               {unit && (
-                <span className="text-sm text-[#0f3d2e]/60">{unit}</span>
+                <span className="text-sm text-base-content/60">{unit}</span>
               )}
             </div>
           </div>
-          <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center", colorStyles[color])}>
+          <div
+            className={cn(
+              "w-12 h-12 rounded-xl flex items-center justify-center",
+              colorStyles[color],
+            )}
+          >
             <Icon className="w-6 h-6" />
           </div>
         </div>
@@ -63,8 +68,11 @@ function StatCard({
 
 export default function DashboardPage() {
   const { data: profile, isLoading: profileLoading } = useQuery(profileQuery());
-  const { data: progress, isLoading: progressLoading } = useQuery(progressQuery());
-  const { data: nutrition, isLoading: nutritionLoading } = useQuery(nutritionQuery(profile));
+  const { data: progress, isLoading: progressLoading } =
+    useQuery(progressQuery());
+  const { data: nutrition, isLoading: nutritionLoading } = useQuery(
+    nutritionQuery(profile),
+  );
 
   if (profileLoading || progressLoading || nutritionLoading) {
     return (
@@ -77,14 +85,15 @@ export default function DashboardPage() {
   if (!profile) {
     return (
       <div className="flex flex-col items-center justify-center h-96 text-center">
-        <div className="w-16 h-16 bg-[#ccff00]/20 rounded-2xl flex items-center justify-center mb-4">
-          <Sparkles className="w-8 h-8 text-[#0f3d2e]" />
+        <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mb-4">
+          <Sparkles className="w-8 h-8 text-base-content" />
         </div>
-        <h2 className="font-display text-2xl font-bold text-[#0f3d2e] mb-2">
+        <h2 className="font-display text-2xl font-bold text-base-content mb-2">
           Complete your profile
         </h2>
-        <p className="text-[#0f3d2e]/60 mb-6 max-w-md">
-          Let&apos;s set up your profile to generate personalized diet and workout plans.
+        <p className="text-base-content/60 mb-6 max-w-md">
+          Let&apos;s set up your profile to generate personalized diet and
+          workout plans.
         </p>
         <Link href="/onboarding">
           <Button size="lg">Complete Setup</Button>
@@ -99,10 +108,10 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="font-display text-3xl font-bold text-[#0f3d2e] mb-2">
+        <h1 className="font-display text-3xl font-bold text-primary mb-2">
           Welcome back!
         </h1>
-        <p className="text-[#0f3d2e]/60">
+        <p className="text-base-content/60">
           Here&apos;s your fitness overview for today
         </p>
       </motion.div>
@@ -144,12 +153,12 @@ export default function DashboardPage() {
         <Card glass hover>
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#ccff00]/20 rounded-xl flex items-center justify-center">
-                <Apple className="w-6 h-6 text-[#0f3d2e]" />
+              <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center">
+                <Apple className="w-6 h-6 text-base-content" />
               </div>
               <div>
                 <CardTitle>AI Diet Plan</CardTitle>
-                <p className="text-sm text-[#0f3d2e]/60 mt-1">
+                <p className="text-sm text-base-content/60 mt-1">
                   Personalized meals based on your goals
                 </p>
               </div>
@@ -168,12 +177,12 @@ export default function DashboardPage() {
         <Card glass hover>
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#0f3d2e]/10 rounded-xl flex items-center justify-center">
-                <Dumbbell className="w-6 h-6 text-[#0f3d2e]" />
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                <Dumbbell className="w-6 h-6 text-base-content" />
               </div>
               <div>
                 <CardTitle>Workout Routine</CardTitle>
-                <p className="text-sm text-[#0f3d2e]/60 mt-1">
+                <p className="text-sm text-base-content/60 mt-1">
                   Custom exercises for your level
                 </p>
               </div>
@@ -208,17 +217,17 @@ export default function DashboardPage() {
               {progress.slice(0, 3).map((entry) => (
                 <div
                   key={entry.id}
-                  className="flex items-center justify-between py-3 border-b border-[#e5e4de] last:border-0"
+                  className="flex items-center justify-between py-3 border-b border-neutral last:border-0"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#207d57]/10 rounded-lg flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-[#207d57]" />
+                    <div className="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                      <TrendingUp className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <p className="font-medium text-[#0f3d2e]">
+                      <p className="font-medium text-base-content">
                         {entry.weight_kg} kg
                       </p>
-                      <p className="text-sm text-[#0f3d2e]/60">
+                      <p className="text-sm text-base-content/60">
                         {new Date(entry.recorded_at).toLocaleDateString()}
                       </p>
                     </div>

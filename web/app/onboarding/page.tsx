@@ -120,7 +120,7 @@ export default function OnboardingPage() {
       case 0:
         return (
           <>
-            <h2 className="font-display text-2xl font-semibold text-[#0f3d2e] mb-6">
+            <h2 className="font-display text-2xl font-semibold text-base-content mb-6">
               Basic Information
             </h2>
             <div className="grid gap-6">
@@ -142,7 +142,7 @@ export default function OnboardingPage() {
       case 1:
         return (
           <>
-            <h2 className="font-display text-2xl font-semibold text-[#0f3d2e] mb-6">
+            <h2 className="font-display text-2xl font-semibold text-base-content mb-6">
               Body Metrics
             </h2>
             <div className="grid gap-6">
@@ -164,7 +164,7 @@ export default function OnboardingPage() {
       case 2:
         return (
           <>
-            <h2 className="font-display text-2xl font-semibold text-[#0f3d2e] mb-6">
+            <h2 className="font-display text-2xl font-semibold text-base-content mb-6">
               Activity Level
             </h2>
             <div className="grid gap-6">
@@ -186,7 +186,7 @@ export default function OnboardingPage() {
       case 3:
         return (
           <>
-            <h2 className="font-display text-2xl font-semibold text-[#0f3d2e] mb-6">
+            <h2 className="font-display text-2xl font-semibold text-base-content mb-6">
               Your Goals
             </h2>
             <div className="grid gap-6">
@@ -211,17 +211,17 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f6] pt-20 pb-12">
+    <div className="min-h-screen bg-base-100 pt-20 pb-12">
       <div className="max-w-2xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="font-display text-3xl font-bold text-[#0f3d2e] mb-2">
+          <h1 className="font-display text-3xl font-bold text-base-content mb-2">
             Let&apos;s get to know you
           </h1>
-          <p className="text-[#0f3d2e]/60">
+          <p className="text-base-content/60">
             We&apos;ll use this to create your personalized plan
           </p>
         </motion.div>
@@ -233,8 +233,8 @@ export default function OnboardingPage() {
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all duration-300 ${
                   index <= currentStep
-                    ? "bg-[#ccff00] text-[#0f3d2e]"
-                    : "bg-[#e5e4de] text-[#0f3d2e]/50"
+                    ? "bg-accent text-accent-content"
+                    : "bg-neutral text-base-content/50"
                 }`}
               >
                 {index < currentStep ? (
@@ -246,7 +246,7 @@ export default function OnboardingPage() {
               {index < steps.length - 1 && (
                 <div
                   className={`w-12 h-0.5 mx-2 transition-all duration-300 ${
-                    index < currentStep ? "bg-[#ccff00]" : "bg-[#e5e4de]"
+                    index < currentStep ? "bg-accent" : "bg-neutral"
                   }`}
                 />
               )}
@@ -255,7 +255,7 @@ export default function OnboardingPage() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="glass-card rounded-2xl p-8 min-h-[400px]">
+          <div className="glass-card rounded-2xl p-8 min-h-100">
             {mutation.error && (
               <div className="mb-6">
                 <Alert
@@ -282,7 +282,7 @@ export default function OnboardingPage() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex justify-between mt-8 pt-6 border-t border-[#e5e4de]">
+            <div className="flex justify-between mt-8 pt-6 border-t border-neutral">
               <Button
                 type="button"
                 variant="ghost"

@@ -17,8 +17,8 @@ export function Card({
     <div
       className={cn(
         "rounded-2xl overflow-hidden",
-        glass ? "glass-card" : "bg-white shadow-lg shadow-[#0f3d2e]/5",
-        hover && "transition-all duration-300 hover:shadow-xl hover:shadow-[#0f3d2e]/10 hover:-translate-y-1",
+        glass ? "glass-card" : "bg-white shadow-lg shadow-primary/5",
+        hover && "transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1",
         className
       )}
     >
@@ -45,7 +45,7 @@ export function CardTitle({
   className?: string;
 }) {
   return (
-    <h3 className={cn("font-display text-xl font-semibold text-[#0f3d2e]", className)}>
+    <h3 className={cn("font-display text-xl font-semibold text-base-content", className)}>
       {children}
     </h3>
   );
