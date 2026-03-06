@@ -52,10 +52,13 @@ desktop.ini
 *.swp
 *.swo
 
-# Expo / React Native
-apps/mobile/.expo/
-apps/mobile/node_modules/
-apps/mobile/dist/
+# Next.js / Web
+web/.next/
+web/out/
+web/.env*.local
+web/next-env.d.ts
+web/tsconfig.tsbuildinfo
+.vercel/
 
 # Logs
 logs/

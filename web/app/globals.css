@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+    --forest-900: #0f3d2e;
+    --forest-800: #145239;
+    --forest-700: #1a6848;
+    --forest-600: #207d57;
+    --forest-500: #269366;
+    --lime: #ccff00;
+    --lime-dark: #b3e600;
+    --cream: #faf9f6;
+    --cream-dark: #f0efe9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: "Sora", sans-serif;
+    background: var(--cream);
+    color: var(--forest-900);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 4px 6px -1px rgba(15, 61, 46, 0.1),
+        0 2px 4px -1px rgba(15, 61, 46, 0.06);
+}
+
+.gradient-border {
+    position: relative;
+    background:
+        linear-gradient(var(--cream), var(--cream)) padding-box,
+        linear-gradient(135deg, var(--forest-600), var(--lime)) border-box;
+    border: 2px solid transparent;
+}
+
+.pulse-indicator {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.stagger-item {
+    opacity: 0;
+    animation: stagger 0.5s ease-out forwards;
+}
+
+.stagger-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.stagger-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.stagger-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.stagger-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+.stagger-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

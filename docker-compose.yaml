@@ -47,5 +47,23 @@ services:
       auth:
         condition: service_healthy
 
+  web:
+    build:
+      context: ./web
+      args:
+        AUTH_URL: http://auth:3000
+    ports:
+      - "3001:3001"
+    env_file:
+      - .env
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+      NEXT_PUBLIC_AUTH_URL: http://localhost:3000
+    depends_on:
+      api:
+        condition: service_started
+      auth:
+        condition: service_healthy
+
 volumes:
   postgres_data:
