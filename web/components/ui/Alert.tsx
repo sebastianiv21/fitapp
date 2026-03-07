@@ -31,10 +31,13 @@ export function Alert({ type = "error", message, onClose }: AlertProps) {
       animate={{ opacity: 1, y: 0 }}
       className={cn("alert rounded-xl", typeStyles[type])}
     >
-      <Icon className="w-5 h-5 flex-shrink-0" />
+      <Icon className="w-5 h-5 shrink-0" />
       <span className="flex-1 text-sm">{message}</span>
       {onClose && (
-        <button onClick={onClose} className="btn btn-ghost btn-sm btn-circle flex-shrink-0">
+        <button
+          onClick={onClose}
+          className="btn btn-ghost btn-sm btn-circle shrink-0"
+        >
           <X className="w-4 h-4" />
         </button>
       )}

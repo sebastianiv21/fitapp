@@ -24,7 +24,20 @@ export const auth = betterAuth({
     updateAge: 60 * 60 * 24,       // refresh if older than 1 day
   },
 
-  plugins: [jwt()],
+  plugins: [
+    jwt({
+      jwt: {
+        // Define custom payload for JWT tokens
+        definePayload: async (session) => ({
+          sub: session.user.id,
+          email: session.user.email,
+          name: session.user.name,
+        }),
+      },
+    }),
+  ],
 
   secret: process.env.BETTER_AUTH_SECRET,
+
+  trustedOrigins: [process.env.WEB_URL || "http://localhost:3001"],
 });
